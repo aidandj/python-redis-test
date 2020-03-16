@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  python:
+    build: .
+    ports:
+      - "5000:5000"
+    container_name: "python-redis-test"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+    command: "python redis_test.py"
+    
+  redis:
+    image: "redis:alpine"

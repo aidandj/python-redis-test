@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  python:
+    build: .
+    ports:
+      - "5000:5000"
+    container_name: "python-redis-test"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+    volumes:
+      - "./data:/data"
+    command: "tail -f /dev/null"
+
+  redis:
+    image: "redis:alpine"
