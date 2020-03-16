@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   python:
+    env_file: .compose_env
     build: .
     ports:
       - "5000:5000"
@@ -9,7 +10,11 @@ services:
       - redis
     environment:
       - REDIS_HOST=redis
+      - REDIS_PORT=${REDIS_PORT}
     command: "python redis_test.py"
     
   redis:
+    env_file: .compose_env
     image: "redis:alpine"
+    command: >
+      --port ${REDIS_PORT}
